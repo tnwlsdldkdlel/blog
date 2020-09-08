@@ -19,7 +19,7 @@
 	<select id="read" resultType="com.blog.domain.BoardVO"> <![CDATA[ SELECT 
 		* FROM tbl_Blog_Board WHERE BNO > 0 ]]> </select> 
 
-	<!-- <select id="readPaging" resultType="com.blog.domain.BoardVO">
+	<select id="readPaging" resultType="com.blog.domain.BoardVO">
 		<![CDATA[
 			select /*+INDEX (tbl_Blog_Board pk_Blog_Board)*/ rno,bno,id,title,content,regdate
 				from(
@@ -28,7 +28,7 @@
     			 Where Rownum <= #{page} * 10 AND bno > 0
 				)where rno > (#{page}-1) * 10
 		]]>
-	</select> -->
+	</select>
 	
 	<select id="countBoard">
 		<![CDATA[
