@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.blog.mapper.BoardMapper">
+	<insert id="insert">
+		INSERT INTO tbl_Blog_Board(bno ,id, title,content)
+		VALUES (seq_Blog_Board.NEXTVAL,#{id},#{title},#{title})
+	</insert>
+
+	<delete id="delete">
+		DELETE FROM tbl_Blog_Board WHERE BNO = #{bno}
+	</delete>
+
+	<update id="update">
+		update tbl_Blog_Board SET title= #{title},
+		content=#{content} WHERE BNO = #{bno}
+	</update>
+
+	<select id="read" resultType="com.blog.domain.BoardVO"> <![CDATA[ SELECT 
+		* FROM tbl_Blog_Board WHERE BNO > 0 ]]> </select> 
+
+	<!-- <select id="readPaging" resultType="com.blog.domain.BoardVO">
+		<![CDATA[
+			select /*+INDEX (tbl_Blog_Board pk_Blog_Board)*/ rno,bno,id,title,content,regdate
+				from(
+   				 select Rownum rno,bno,id,title,content,regdate
+   				 from tbl_Blog_Board
+    			 Where Rownum <= #{page} * 10 AND bno > 0
+				)where rno > (#{page}-1) * 10
+		]]>
+	</select> -->
+	
+	<select id="countBoard">
+		<![CDATA[
+			SELECT * FROM tbl_Blog_Board WHERE BNO > 0;
+		]]>
+	</select>
+
+
+
+
+</mapper>

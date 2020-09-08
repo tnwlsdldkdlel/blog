@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.blog.mapper.MemberMapper">
+	<insert id="insert">
+		INSERT INTO tbl_Blog_Member(id,password,nickname) VALUES (#{id},#{password},#{nickname})
+	</insert>
+	
+	<delete id="delete">
+		delete tbl_Blog_Member where id=#{id}
+	</delete>
+	
+	<update id="update">
+		update tbl_Blog_Member set nickname= #{nickname}, password=#{password} where id=#{id}
+	</update>
+	
+	<select id="read" resultType="com.blog.domain.MemberVO">
+		select * from tbl_Blog_Member where id=#{id}
+	</select>
+
+
+</mapper>
