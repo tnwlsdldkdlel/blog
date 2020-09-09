@@ -22,6 +22,17 @@
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
 <title>Insert title here</title>
+<script type="text/javascript">
+
+	$(document).ready(function(){
+		
+		$(".page-item a").on("click",function(e){
+				e.preventDefault();
+				console.log('click');
+				$("#actionForm").find("input[name='currentPage']").val($(this).attr("href"));
+		});
+	});
+</script>
 </head>
 <body>
 
@@ -49,24 +60,25 @@
 					<hr>
 				</c:forEach>
 				
-				<%-- <!-- Pager -->
+				<!-- Pager -->
 				<nav aria-label="...">
-					<ul class="pagination">
-						<li class="page-item disabled"><a class="page-link" href="#"
-							tabindex="-1" aria-disabled="true">Previous</a></li>
+					  <ul class="pagination justify-content-center">
+					  
+						<li class="page-item disabled"><a class="page-link" href="#" tabindex="-1" aria-disabled="true">Previous</a></li>
 						
 						
-						<c:forEach items="${cri.
-						page}" var="cri">
-						<li class="page-item active" aria-current="page"><a
-							class="page-link" href="/blog/home?page='${cri.page}'">${cri.page}</a>
-						</li>
+						<c:forEach begin="${page.startPage }" end="${page.endPage }" var="page">
+						    <li class="page-item"><a class="page-link" href="${page }">${page }</a></li>
 						</c:forEach>
 						
 						<li class="page-item"><a class="page-link" href="#">Next</a>
 						</li>
 					</ul>
-				</nav> --%>
+				</nav>  
+				
+				<form action="/blog/home" id="actionForm" method="get">
+					<input type="hidden" name="currentPage" value="${page.currentPage }"/>
+				</form>
 
 			</div>
 		</div>

@@ -3,7 +3,7 @@ package com.blog.mapper;
 import java.util.List;
 
 import com.blog.domain.BoardVO;
-import com.blog.domain.Criteria;
+import com.blog.domain.PageNation;
 
 public interface BoardMapper {
 	
@@ -20,9 +20,9 @@ public interface BoardMapper {
 	public List<BoardVO> read();
 	
 	//페이징한 게시글 목록
-	public List<BoardVO> readPaging(Criteria cri);
+	public List<BoardVO> readPaging(int currentPage);
 	
-	//게시글갯수
-	public int countBoard();
+	//전체글개수
+	public int readCount();
 
 }

@@ -7,7 +7,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.blog.domain.BoardVO;
-import com.blog.domain.Criteria;
+import com.blog.domain.PageNation;
 import com.blog.domain.MemberVO;
 
 import lombok.Setter;
@@ -54,11 +54,11 @@ public class BoardMapperTest {
 //
 //	}
 	
-	@Test
-	public void readPagingTest() {
-		Criteria cri = new Criteria();
-		cri.setPage(2);
-		mapper.readPaging(cri).forEach(list -> log.info(list));
-	}
 
+	@Test
+	public void readCountTest() {
+		int count = mapper.readCount();
+		log.info(count);
+	}
+	
 }

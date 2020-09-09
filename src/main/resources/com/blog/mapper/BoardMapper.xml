@@ -30,9 +30,9 @@
 		]]>
 	</select>
 	
-	<select id="countBoard">
+	<select id="readCount" resultType="int">
 		<![CDATA[
-			SELECT * FROM tbl_Blog_Board WHERE BNO > 0;
+			select count(bno) from tbl_Blog_Board where bno > 0
 		]]>
 	</select>
 

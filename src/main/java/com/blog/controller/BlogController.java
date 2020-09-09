@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.blog.domain.Criteria;
+import com.blog.domain.PageNation;
 import com.blog.domain.MemberVO;
 import com.blog.service.BoardService;
 import com.blog.service.MemberService;
@@ -33,15 +33,10 @@ public class BlogController {
 //	Criteria cri = new Criteria();
 	
 	@GetMapping("/home")
-	public String home( Model model) {
-		
-//		if(cri.getPage() == 0) {
-//			cri.setPage(1);
-//		}else {
-//			cri.setPage(boardService.countBoard());
-//		}
-//		model.addAttribute("cri",cri);
-		model.addAttribute("list", boardService.list());
+	public String home(@RequestParam(defaultValue = "1") int currentPage, Model model) {
+		PageNation page = new PageNation(currentPage, boardService.listCount());
+		model.addAttribute("list", boardService.listPaging(currentPage));
+		model.addAttribute("page", page );
 		return "/blog/home";
 	}
 	

@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.blog.domain.BoardVO;
-import com.blog.domain.Criteria;
+import com.blog.domain.PageNation;
 import com.blog.mapper.BoardMapper;
 
 import lombok.Setter;
@@ -43,13 +43,14 @@ public class BoardServiceImpl implements BoardService {
 	}
 
 	@Override
-	public List<BoardVO> listPaging(Criteria cri) {
-		return mapper.readPaging(cri);
+	public List<BoardVO> listPaging(int currentPage) {
+		return mapper.readPaging(currentPage);
 	}
 
 	@Override
-	public int countBoard() {
-		return mapper.countBoard();
+	public int listCount() {
+		return mapper.readCount();
 	}
 
+	
 }

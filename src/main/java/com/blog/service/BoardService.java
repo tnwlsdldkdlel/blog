@@ -3,7 +3,7 @@ package com.blog.service;
 import java.util.List;
 
 import com.blog.domain.BoardVO;
-import com.blog.domain.Criteria;
+import com.blog.domain.PageNation;
 
 public interface BoardService {
 	
@@ -20,9 +20,11 @@ public interface BoardService {
 	public List<BoardVO> list();
 	
 	//게시글목록페이징
-	public List<BoardVO> listPaging(Criteria cri);
+	public List<BoardVO> listPaging(int currentPage);
 	
-	//게시글개수
-	public int countBoard();
+	//전체게시글개수
+	public int listCount();
+	
+	
 
 }
