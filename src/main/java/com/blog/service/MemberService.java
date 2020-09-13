@@ -17,5 +17,6 @@ public interface MemberService {
 	
 	//회원정보
 	public MemberVO Information(String id);
+	
 
 }

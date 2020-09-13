@@ -35,6 +35,17 @@
 			select count(bno) from tbl_Blog_Board where bno > 0
 		]]>
 	</select>
+	
+	<select id="readID" resultType="com.blog.domain.BoardVO">
+		<![CDATA[
+			select /*+INDEX (tbl_Blog_Board pk_Blog_Board)*/ rno,bno,id,title,content,regdate
+				from(
+   				 select Rownum rno,bno,id,title,content,regdate
+   				 from tbl_Blog_Board
+    			 Where Rownum <= #{page} * 10 AND bno > 0
+				)where rno > (#{page}-1) * 10 and id = ${id}
+		]]>
+	</select>
 
 
 

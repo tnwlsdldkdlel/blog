@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:security="http://www.springframework.org/schema/security"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mybatis-spring="http://mybatis.org/schema/mybatis-spring"
+	xsi:schemaLocation="http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security.xsd
+		http://mybatis.org/schema/mybatis-spring http://mybatis.org/schema/mybatis-spring-1.2.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+	<bean class="com.blog.security.customUserDetail"
+		id="customUserDetail">
+	</bean>
+	<bean id="userAuthProvider" class="com.blog.security.CustomAuthenticationProvider"></bean>
+
+	<security:http auto-config="true">
+		<security:csrf disabled="true" />
+		<security:form-login login-page="/blog/login"
+			password-parameter="id" username-parameter="password"
+			always-use-default-target="true" login-processing-url="/loginCheck"
+			authentication-success-handler-ref="loginSuccessHandler"
+			authentication-failure-handler-ref="loginFailureHandler"
+			authentication-failure-url="/blog/login" />
+
+	</security:http>
+
+	<security:authentication-manager>
+		<security:authentication-provider ref="userAuthProvider"></security:authentication-provider>
+		<security:authentication-provider user-service-ref="customUserDetail"></security:authentication-provider>
+	</security:authentication-manager>
+	<bean id="customAccess"
+		class="com.blog.security.CustomLoginSuccessHandler">
+	</bean>
+	
+	<bean id="loginSuccessHandler" class="com.blog.security.CustomLoginSuccessHandler">
+		<property name="defaultUrl" value="/blog/home"></property>
+	</bean>
+	
+	<bean id="loginFailureHandler" class="com.blog.security.CustomLoginFailureHandler">
+		<property name="defaultUrl" value="/blog/login?err=ture"></property>
+	</bean>
+</beans>

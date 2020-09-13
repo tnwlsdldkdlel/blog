@@ -48,10 +48,19 @@ public class MemberMapperTest {
 //		log.info(vo);
 //	}
 	
+//	@Test
+//	public void listTests() {
+//		MemberVO vo = new MemberVO();
+//		vo = mapper.read("a");
+//		log.info(vo);
+//	}
+	
 	@Test
-	public void listTests() {
+	public void readTest() {
 		MemberVO vo = new MemberVO();
-		vo = mapper.read("a");
-		log.info(vo);
+		vo = mapper.read("d");
+		
+		log.info(vo.getPassword());
+
 	}
 }

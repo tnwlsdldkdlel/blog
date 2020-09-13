@@ -34,21 +34,22 @@ public class MemberServiceTest {
 //		service.secession("b");
 //	}
 	
-	@Test
-	public void ModifiedTest() {
-		MemberVO vo = new MemberVO();
-		vo.setId("c");
-		vo.setNickname("c닉네임");
-		vo.setPassword("c비밀번호");
-		service.Modified(vo);
-	}
-	
 //	@Test
-//	public void InformationTest() {
+//	public void ModifiedTest() {
 //		MemberVO vo = new MemberVO();
 //		vo.setId("c");
-//		vo = service.Information(vo);
-//		log.info(vo);
-//	} 
+//		vo.setNickname("c닉네임");
+//		vo.setPassword("c비밀번호");
+//		service.Modified(vo);
+//	}
+//	
+	@Test
+	public void InformationTest() {
+		MemberVO vo = new MemberVO();
+		vo.setId("d");
+		vo = service.Information(vo.getId());
+		log.info(vo);
+	} 
+	
 	
 }

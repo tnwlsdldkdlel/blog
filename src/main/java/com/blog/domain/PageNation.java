@@ -32,9 +32,9 @@ public class PageNation {
 		this.startPage = this.range - 9;
 		
 		
-		//전체페이지가 범위보다 큰 경우
+		//전체페이지가 범위보다 큰 경우 딱 10페이지만 보여주게
 		if(endPage > range) {
-			endPage = range;
+			this.endPage = range;
 		}
 		
 	}

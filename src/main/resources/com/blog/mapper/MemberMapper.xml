@@ -2,6 +2,22 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.blog.mapper.MemberMapper">
+	<!-- DB값과 DTO객체의 프로퍼티의 명이 다를때  -->
+	<resultMap type="com.blog.domain.MemberVO" id="memberMap">
+	    <!-- id : pk인경우 result : 그 외 -->
+		<id property="id" column="id"/>
+		<result property="id" column="id"/>
+		<result property="password" column="password"/>
+		<result property="nickname" column="nickname"/>
+		<result property="joindate" column="joindate"/>
+		<collection property="authlist" resultMap="authMap"></collection>
+	</resultMap>
+	
+	<resultMap type="com.blog.domain.AuthVO" id="authMap">
+		<result property="id" column="id"/>
+		<result property="auth" column="auth"/>
+	</resultMap>
+
 	<insert id="insert">
 		INSERT INTO tbl_Blog_Member(id,password,nickname) VALUES (#{id},#{password},#{nickname})
 	</insert>
@@ -14,9 +30,13 @@
 		update tbl_Blog_Member set nickname= #{nickname}, password=#{password} where id=#{id}
 	</update>
 	
-	<select id="read" resultType="com.blog.domain.MemberVO">
-		select * from tbl_Blog_Member where id=#{id}
+	<select id="read" resultMap="memberMap">
+		select mem.*,auth.auth
+		from tbl_Blog_Member mem LEFT OUTER JOIN tbl_Blog_Member_auth auth 
+		ON mem.id = auth.id
+		WHERE mem.id = #{id}
 	</select>
+	
 
 
 </mapper>

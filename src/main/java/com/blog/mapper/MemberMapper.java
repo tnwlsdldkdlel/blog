@@ -17,5 +17,6 @@ public interface MemberMapper {
 	//회원정보
 	public MemberVO read(String id);
 	
+	
 
 }

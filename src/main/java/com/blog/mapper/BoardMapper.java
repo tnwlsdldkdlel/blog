@@ -24,5 +24,8 @@ public interface BoardMapper {
 	
 	//전체글개수
 	public int readCount();
+	
+	//해당아이디에 대한 글목록
+	public List<BoardVO> readID(int currentPage);
 
 }

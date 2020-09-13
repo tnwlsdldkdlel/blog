@@ -2,6 +2,7 @@ package com.blog.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.blog.domain.MemberVO;
 import com.blog.mapper.MemberMapper;
@@ -11,7 +12,6 @@ import lombok.Data;
 import lombok.Setter;
 
 @Service
-@AllArgsConstructor
 public class MemberServicelmpl implements MemberService {
 	
 	@Setter(onMethod_ = @Autowired)
@@ -44,5 +44,6 @@ public class MemberServicelmpl implements MemberService {
 		vo = mapper.read(id);
 		return vo;
 	}
+
 
 }

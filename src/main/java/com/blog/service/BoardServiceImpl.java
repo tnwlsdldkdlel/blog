@@ -52,5 +52,10 @@ public class BoardServiceImpl implements BoardService {
 		return mapper.readCount();
 	}
 
+	@Override
+	public List<BoardVO> listID(int currentPage) {
+		return mapper.readID(currentPage);
+	}
+
 	
 }

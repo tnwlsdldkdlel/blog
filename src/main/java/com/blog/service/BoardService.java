@@ -25,6 +25,9 @@ public interface BoardService {
 	//전체게시글개수
 	public int listCount();
 	
+	//해당아이디 글목록
+	public List<BoardVO> listID(int currentPage);
+	
 	
 
 }
