@@ -3,6 +3,7 @@ package com.blog.security;
 import java.util.Collection;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpRequest;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -27,7 +28,6 @@ public class customUserDetail implements UserDetailsService{
 		MemberVO vo = mapper.read(username);
 	
 		log.warn("read:" + vo);
-		
 		return vo == null ? null : vo;
 		
 	}

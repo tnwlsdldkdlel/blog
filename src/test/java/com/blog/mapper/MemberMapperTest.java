@@ -55,12 +55,17 @@ public class MemberMapperTest {
 //		log.info(vo);
 //	}
 	
+//	@Test
+//	public void readTest() {
+//		MemberVO vo = new MemberVO();
+//		vo = mapper.read("d");
+//		
+//		log.info(vo.getPassword());
+//
+//	}
+	
 	@Test
-	public void readTest() {
-		MemberVO vo = new MemberVO();
-		vo = mapper.read("d");
-		
-		log.info(vo.getPassword());
-
+	public void searchIdANDNickname() {
+		mapper.searchIdANDNickname(1, "i");
 	}
 }

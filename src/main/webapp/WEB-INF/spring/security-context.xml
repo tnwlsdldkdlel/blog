@@ -8,20 +8,19 @@
 		http://mybatis.org/schema/mybatis-spring http://mybatis.org/schema/mybatis-spring-1.2.xsd
 		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
-	<bean class="com.blog.security.customUserDetail"
-		id="customUserDetail">
+	<bean class="com.blog.security.customUserDetail" id="customUserDetail">
 	</bean>
 	<bean id="userAuthProvider" class="com.blog.security.CustomAuthenticationProvider"></bean>
 
 	<security:http auto-config="true">
 		<security:csrf disabled="true" />
-		<security:form-login login-page="/blog/login"
+		<security:form-login login-page="/blog/home"
 			password-parameter="id" username-parameter="password"
 			always-use-default-target="true" login-processing-url="/loginCheck"
 			authentication-success-handler-ref="loginSuccessHandler"
 			authentication-failure-handler-ref="loginFailureHandler"
-			authentication-failure-url="/blog/login" />
-
+			authentication-failure-url="/blog/home" />
+		<security:logout logout-success-url="/blog/home" logout-url="/logoutCheck" invalidate-session="true" />
 	</security:http>
 
 	<security:authentication-manager>
@@ -34,9 +33,11 @@
 	
 	<bean id="loginSuccessHandler" class="com.blog.security.CustomLoginSuccessHandler">
 		<property name="defaultUrl" value="/blog/home"></property>
+		<property name="id" value="id"></property>
+		
 	</bean>
 	
 	<bean id="loginFailureHandler" class="com.blog.security.CustomLoginFailureHandler">
-		<property name="defaultUrl" value="/blog/login?err=ture"></property>
+		<property name="defaultUrl" value="/blog/home"></property>
 	</bean>
 </beans>

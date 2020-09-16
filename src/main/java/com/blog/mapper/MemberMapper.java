@@ -1,6 +1,10 @@
 package com.blog.mapper;
 
 
+import java.util.List;
+
+import org.apache.ibatis.annotations.Param;
+
 import com.blog.domain.MemberVO;
 
 public interface MemberMapper {
@@ -17,6 +21,8 @@ public interface MemberMapper {
 	//회원정보
 	public MemberVO read(String id);
 	
+	//회원검색
+	public List<MemberVO> searchIdANDNickname(@Param("currentPage")int currentPage, @Param("keyword")String keyword);
 	
 
 }

@@ -18,6 +18,10 @@ public class MemberVO implements UserDetails {
 	private String password;
 	private String nickname;
 	private Date joindate;
+	private String blog_name;
+	private String blog_itroduction;
+	
+	
 	private List<AuthVO> authlist;
 	@Override
 	public  Collection<? extends GrantedAuthority> getAuthorities() {

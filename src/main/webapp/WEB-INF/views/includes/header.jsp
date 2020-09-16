@@ -1,5 +1,4 @@
-<%@ taglib uri="http://www.springframework.org/security/tags"
-	prefix="sec"%>
+
 
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 <link rel="stylesheet"
@@ -34,19 +33,12 @@
 		href="javascript:void(0);" onclick="openNav()"><i
 		class="fa fa-bars"></i></a> <a href="/blog/home"
 		class="w3-bar-item w3-button w3-padding-large w3-theme-d4"><i
-		class="fa fa-home w3-margin-right"></i>home</a> <a href="/myblog/home"
+		class="fa fa-home w3-margin-right"></i>home</a> <a href="/blog/myblog"
 		class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white"
 		title="Account Settings">myBlog</a>
-	<sec:authorize access="isAnonymous() ">
-		<a href="/blog/login"
-			class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white"
-			title="Account Settings">login/join</a>
-	</sec:authorize>
-	<sec:authorize access="isAuthenticated()">
-		<a href="/blog/logout"
-			class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white"
-			title="Account Settings">logout</a>
-	</sec:authorize>
+	
+		
+	
 </div>
 
 

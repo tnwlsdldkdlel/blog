@@ -19,19 +19,18 @@
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
 
 <title>Insert title here</title>
+<script type="text/javascript" src="/resoures/js/blog.js"></script>
 <script type="text/javascript">
-	$(document).ready(function(){
-		
-		var actionForm = $("#actionForm");
-		var a = ${page.range};
-		var a = ${page.endPage};
-		$(".page-item a").on("click",function(e){
-			e.preventDefault();
-			actionForm.find("input[name='currentPage']").val($(this).attr("href"));
-			actionForm.submit();
-		});
-		
-	});
+	$(document).ready(
+			function() {
+
+				var actionForm = $("#actionForm");
+				
+				$("#listbtn").on("click",function(e){
+					location.href = actionForm.attr('action');
+				});
+
+			});
 </script>
 <style>
 html, body, h1, h2, h3, h4, h5 {
@@ -61,10 +60,12 @@ html, body, h1, h2, h3, h4, h5 {
 							)
 						</p>
 						<hr>
-							<form action="/blog/myblog/write">
-								<button type="submit" id="writebtn" class="w3-button w3-theme-d2 w3-margin-bottom">글쓰기</button>
-								<button type="submit" id="managementbtn" class="w3-button w3-theme-d2 w3-margin-bottom">관리</button>
-							</form>
+						<form action="/blog/myblog/write">
+							<button type="submit" id="writebtn"
+								class="w3-button w3-theme-d2 w3-margin-bottom">글쓰기</button>
+							<button type="submit" id="managementbtn"
+								class="w3-button w3-theme-d2 w3-margin-bottom">관리</button>
+						</form>
 					</div>
 				</div>
 				<br>
@@ -131,21 +132,32 @@ html, body, h1, h2, h3, h4, h5 {
 				<!-- End Left Column -->
 			</div>
 
-			<!-- Middle Column -->
 			<div class="w3-col m7">
 
 
-				<c:forEach items="${list}" var="list">
+				<c:forEach items="${content}" var="content">
 					<div class="w3-container w3-card w3-white w3-round w3-margin">
-						<br> <span class="w3-right w3-opacity"><c:out
-								value="${list.regdate }" /></span>
+						<br>
 						<h4>
-							<a href="/blog/myblog/boardContent?bno=${list.bno }"><c:out value="${list.title }" ></c:out></a>
+							<c:out value="${content.title }"></c:out>
 						</h4>
+						<div class="w3-left">
+							<c:out value="${content.regdate }" />
+						</div>
+						<div class="dropdown">
+							<a class="btn btn-light dropdown-toggle w3-right" href="#"
+								role="button" id="dropdownMenuLink" data-toggle="dropdown"
+								aria-haspopup="true" aria-expanded="false"> </a>
+
+							<div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+								<a class="dropdown-item" id="modified" href="/blog/myblog/boardContent/modified?bno=<c:out value="${content.bno }"/>">수정</a>
+								<a class="dropdown-item" id="remove" href="/blog/myblog/boardContent/remove?bno=<c:out value="${content.bno }"/>">삭제</a>
+							</div>
+						</div>
 						<br>
 						<hr class="w3-clear">
 						<p>
-							<c:out value="${list.content }" />
+							<c:out value="${content.content }" />
 						</p>
 						<div class="w3-row-padding" style="margin: 0 -16px">
 							<div class="w3-half"></div>
@@ -161,6 +173,13 @@ html, body, h1, h2, h3, h4, h5 {
 						</button>
 					</div>
 				</c:forEach>
+				
+				<div class=w3-center>
+				<button type="button" id="listbtn" class="w3-button w3-theme-d2 w3-margin-bottom">목록</button>
+				</div>
+				<form action="/blog/myblog" method="get" id="actionForm">
+					<input type="hidden" id="" value="" />
+				</form>
 				<!-- End Middle Column -->
 			</div>
 
@@ -169,26 +188,8 @@ html, body, h1, h2, h3, h4, h5 {
 		<!-- End Grid -->
 	</div>
 
-	<!-- End Page Container -->
-	<nav aria-label="Page navigation example">
-		<ul class="pagination justify-content-center">
-			<c:if test="${page.startPage > 1 }">
-				<li class="page-item disabled"><a class="page-link" href="${page.prevPage }" tabindex="-1" aria-disabled="true">Previous</a></li>
-			</c:if>
-			<c:forEach begin="${page.startPage }" end="${page.endPage }" var="page">
-				<li class="page-item"><a class="page-link" href="${page }"><c:out value="${page }"/></a></li>
-			</c:forEach>
-			<c:if test="${page.currentPage < page.range }">
-			<li class="page-item"><a class="page-link" href="${page.nextPage }">Next</a></li>
-			</c:if>
-		</ul>
-	</nav>
-	
-	<form action="/blog/myblog" method="get" id="actionForm">
-		<input type="hidden" name="currentPage" value="${page.currentPage }" >
-	</form>
 	<br>
-	
+
 
 
 

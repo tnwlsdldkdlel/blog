@@ -37,6 +37,19 @@
 		WHERE mem.id = #{id}
 	</select>
 	
+	<select id="searchIdANDNickname" resultType="com.blog.domain.MemberVO">	
+		 <![CDATA[
+		 	SELECT /*+INDEX(tbl_Blog_Member pk_Blog_Member)*/ id,nickname,blog_name,blog_itroduction
+			FROM(
+   				 SELECT id,nickname,blog_name,blog_itroduction, ROWNUM rn
+   				 FROM tbl_Blog_Member 
+  				  Where Rownum <= #{currentPage} * 10 AND ( id LIKE '%' || #{keyword} || '%' OR nickname LIKE '%' || #{keyword} || '%' )
+				)WHERE RN > 0
+		 ]]>
+	</select>
+	
+	
+	
 
 
 </mapper>

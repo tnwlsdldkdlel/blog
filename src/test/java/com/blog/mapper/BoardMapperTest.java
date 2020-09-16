@@ -55,10 +55,22 @@ public class BoardMapperTest {
 //	}
 	
 
+//	@Test
+//	public void readCountTest() {
+//		mapper.readID(1, "a").forEach(list -> log.info(list));
+//	
+//	}
+	
+//	@Test
+//	public void readContent() {
+//		mapper.readContent(81L).forEach(list -> log.info(list));
+//	}
+//	
 	@Test
-	public void readCountTest() {
-		int count = mapper.readCount();
-		log.info(count);
+	public void search() {
+		mapper.searchTitleANDContent(1, "f").forEach(list -> log.info(list));
 	}
 	
+	
+		
 }

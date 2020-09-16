@@ -28,6 +28,7 @@ public class PageNation {
 		this.nextPage = currentPage + 1;
 		this.prevPage =  currentPage - 1;
 		this.range = (int)Math.ceil(currentPage/10.0)*10;
+		//실제
 		this.endPage=(int)Math.ceil(totalConunt/10.0);
 		this.startPage = this.range - 9;
 		
@@ -35,6 +36,12 @@ public class PageNation {
 		//전체페이지가 범위보다 큰 경우 딱 10페이지만 보여주게
 		if(endPage > range) {
 			this.endPage = range;
+		}
+		
+		//작은 경우 실제 끝페이지 보여주게
+		if(endPage < range) {
+			this.range = endPage;
+			this.startPage = 1;
 		}
 		
 	}

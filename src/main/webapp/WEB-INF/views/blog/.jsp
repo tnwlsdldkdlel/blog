@@ -45,12 +45,6 @@ html, body, h1, h2, h3, h4, h5 {
 					e.preventDefault;
 					actionForm.attr("action").val
 				});
-				
-				var searchForm = $("searchForm");
-				$("#searchBtn").on("click",function(e){
-					searchForm.attr("href").preventDefault();
-					
-				});
 
 			});
 </script>
@@ -118,10 +112,9 @@ html, body, h1, h2, h3, h4, h5 {
 						<form action="/blog/search" method="get" id="searchForm">
 							<select class="custom-select my-1 mr-sm-2"
 								id="inlineFormCustomSelectPref" name="rangeType">
-								<option value="text" id = "/blog/search/Post"selected>글·내용</option>
-								<option value="idANDnickname" id = "/blog/search/NickAndId">아이디·별명</option>
-							</select>
-							<input type="text" name="keyword" class="form-control" />
+								<option value="text" selected>글·내용</option>
+								<option value="idANDnickname">아이디·별명</option>
+							</select> <input type="text" name="keyword" class="form-control" />
 							<button type="submit" id="searchBtn"
 								class="w3-button w3-theme-d2">검색</button>
 						</form>
@@ -136,53 +129,76 @@ html, body, h1, h2, h3, h4, h5 {
 			</div>
 
 			<!-- Middle Column -->
-			<div class="w3-col m7">
-				<c:forEach var="list" items="${list}">
-					<div class="w3-container w3-card w3-white w3-round w3-margin">
-						<br> <span class="w3-right w3-opacity"><c:out
-								value="${list.regdate}"></c:out></span>
-						<h4>
-							<c:out value="${list.id}" />
-						</h4>
-						<br>
-						<hr class="w3-clear">
-						<p>
-							<c:out value="${list.content}" />
-						</p>
-						<br />
-						<button type="button"
-							class="w3-button w3-theme-d1 w3-margin-bottom">
-							<i class="fa fa-thumbs-up"></i>  Like
-						</button>
-						<button type="button"
-							class="w3-button w3-theme-d2 w3-margin-bottom">
-							<i class="fa fa-comment"></i>  Comment
-						</button>
-					</div>
-				</c:forEach>
-			</div>
+			<c:if test="${idANDnickname eq null}">
+				<div class="w3-col m7">
+					<c:forEach var="text" items="${text}">
+						<div class="w3-container w3-card w3-white w3-round w3-margin">
+							<br> <span class="w3-right w3-opacity"><c:out
+									value="${text.regdate}"></c:out></span>
+							<h4>
+								<c:out value="${text.title}" />
+							</h4>
+							<br>
+							<hr class="w3-clear">
+							<p>
+								<c:out value="${text.content}" />
+								<c:out value="${idANDnickname.id}" />
+							</p>
+							<br />
+							<button type="button"
+								class="w3-button w3-theme-d1 w3-margin-bottom">
+								<i class="fa fa-thumbs-up"></i>  Like
+							</button>
+							<button type="button"
+								class="w3-button w3-theme-d2 w3-margin-bottom">
+								<i class="fa fa-comment"></i>  Comment
+							</button>
+						</div>
+					</c:forEach>
+				</div>
+			</c:if>
+
+
+			<!-- Middle Column -->
+			<c:if test="${text eq null}">
+				<div class="w3-col m7">
+					<c:forEach var="idANDnickname" items="${idANDnickname}">
+						<div class="w3-container w3-card w3-white w3-round w3-margin">
+							<br>
+							<hr class="w3-clear">
+							<p>
+								<c:out value="${idANDnickname.id}" />
+							</p>
+						</div>
+					</c:forEach>
+				</div>
+			</c:if>
 		</div>
 	</div>
 
 	<!-- End Middle Column -->
-	<nav aria-label="Page navigation example">
-		<ul class="pagination justify-content-center">
-			<c:if test="${page.startPage > 1 }">
-				<li class="page-item"><a class="page-link"
-					href="${page.prevPage }" tabindex="-1" aria-disabled="true">Previous</a></li>
-			</c:if>
-			<c:forEach begin="${page.startPage }" end="${page.endPage }"
-				var="list">
-				<li class="page-item"><a class="page-link" href="${list }">${list }</a></li>
-			</c:forEach>
-			<c:if test="${page.currentPage < page.range }">
-				<li class="page-item"><a class="page-link"
-					href="${page.nextPage }">Next</a></li>
-			</c:if>
-		</ul>
-	</nav>
+	<c:if test="${page.totalConunt > 0}">
+		<nav aria-label="Page navigation example">
+			<ul class="pagination justify-content-center">
+				<c:if test="${page.startPage > 1 }">
+					<li class="page-item"><a class="page-link"
+						href="${page.prevPage }" tabindex="-1" aria-disabled="true">Previous</a></li>
+				</c:if>
+				<c:forEach begin="${page.startPage }" end="${page.endPage }"
+					var="list">
+					<li class="page-item"><a class="page-link" href="${list }">${list }</a></li>
+				</c:forEach>
+				<c:if test="${page.currentPage < page.range }">
+					<li class="page-item"><a class="page-link"
+						href="${page.nextPage }">Next</a></li>
+				</c:if>
+			</ul>
+		</nav>
+	</c:if>
 	<form action="/blog/home" id="actionForm" method="get">
 		<input type="hidden" name="currentPage" value="${page.currentPage }" />
+		<input type="hidden" name="rangeType" value="${searchInfo.rangeType}" />
+		<input type="hidden" name="text" value="${searchInfo.text}" />
 	</form>
 
 </body>

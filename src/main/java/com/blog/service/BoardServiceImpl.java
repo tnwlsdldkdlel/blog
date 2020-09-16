@@ -53,9 +53,26 @@ public class BoardServiceImpl implements BoardService {
 	}
 
 	@Override
-	public List<BoardVO> listID(int currentPage) {
-		return mapper.readID(currentPage);
+	public List<BoardVO> listID(int currentPage, String id) {
+		return mapper.readID(currentPage, id);
 	}
+
+	@Override
+	public int listIDCount(String id) {
+		int count = mapper.readIDCount(id);
+		return count;
+	}
+
+	@Override
+	public List<BoardVO> boardContent(Long bno) {
+		return mapper.readContent(bno);
+	}
+
+	@Override
+	public List<BoardVO> searchContent(int currentPage, String text) {
+		return mapper.searchTitleANDContent(currentPage, text);
+	}
+
 
 	
 }

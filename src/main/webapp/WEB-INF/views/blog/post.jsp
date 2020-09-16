@@ -45,12 +45,6 @@ html, body, h1, h2, h3, h4, h5 {
 					e.preventDefault;
 					actionForm.attr("action").val
 				});
-				
-				var searchForm = $("searchForm");
-				$("#searchBtn").on("click",function(e){
-					searchForm.attr("href").preventDefault();
-					
-				});
 
 			});
 </script>
@@ -118,8 +112,8 @@ html, body, h1, h2, h3, h4, h5 {
 						<form action="/blog/search" method="get" id="searchForm">
 							<select class="custom-select my-1 mr-sm-2"
 								id="inlineFormCustomSelectPref" name="rangeType">
-								<option value="text" id = "/blog/search/Post"selected>글·내용</option>
-								<option value="idANDnickname" id = "/blog/search/NickAndId">아이디·별명</option>
+								<option value="text" selected>글·내용</option>
+								<option value="idANDnickname">아이디·별명</option>
 							</select>
 							<input type="text" name="keyword" class="form-control" />
 							<button type="submit" id="searchBtn"

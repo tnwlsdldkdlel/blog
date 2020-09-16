@@ -7,7 +7,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.web.DefaultRedirectStrategy;
 import org.springframework.security.web.RedirectStrategy;
 import org.springframework.security.web.WebAttributes;
@@ -17,6 +19,8 @@ import org.springframework.security.web.savedrequest.RequestCache;
 import org.springframework.security.web.savedrequest.SavedRequest;
 import org.springframework.test.web.reactive.server.WebTestClient.RequestBodySpec;
 
+import com.blog.domain.MemberVO;
+
 import lombok.Data;
 import lombok.extern.log4j.Log4j;
 
@@ -25,6 +29,10 @@ import lombok.extern.log4j.Log4j;
 public class CustomLoginSuccessHandler implements AuthenticationSuccessHandler {
 
 	private String defaultUrl;
+	private String id;
+	
+	@Autowired
+    private UserDetailsService service;
 
 	@Override
 	public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response,
@@ -34,7 +42,7 @@ public class CustomLoginSuccessHandler implements AuthenticationSuccessHandler {
 		if (session == null)
 			return;
 		session.removeAttribute(WebAttributes.AUTHENTICATION_EXCEPTION);
-
+		
 		response.sendRedirect(defaultUrl);
 
 	}

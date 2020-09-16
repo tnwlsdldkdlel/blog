@@ -45,10 +45,7 @@ public class MemberServiceTest {
 //	
 	@Test
 	public void InformationTest() {
-		MemberVO vo = new MemberVO();
-		vo.setId("d");
-		vo = service.Information(vo.getId());
-		log.info(vo);
+		service.searchIdANDNickname(1, "i");
 	} 
 	
 	

@@ -1,5 +1,7 @@
 package com.blog.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -43,6 +45,11 @@ public class MemberServicelmpl implements MemberService {
 		MemberVO vo = new MemberVO();
 		vo = mapper.read(id);
 		return vo;
+	}
+
+	@Override
+	public List<MemberVO> searchIdANDNickname(int currentPage, String keyword) {
+		return mapper.searchIdANDNickname(currentPage, keyword);
 	}
 
 
