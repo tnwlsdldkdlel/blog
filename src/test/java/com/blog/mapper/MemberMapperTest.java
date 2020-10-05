@@ -6,8 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import com.blog.domain.MemberVO;
-
+import com.ITlog.domain.MemberVO;
+import com.ITlog.mapper.MemberMapper;
 
 import lombok.Data;
 import lombok.Setter;
@@ -48,12 +48,12 @@ public class MemberMapperTest {
 //		log.info(vo);
 //	}
 	
-//	@Test
-//	public void listTests() {
-//		MemberVO vo = new MemberVO();
-//		vo = mapper.read("a");
-//		log.info(vo);
-//	}
+	@Test
+	public void listTests() {
+		MemberVO vo = new MemberVO();
+		vo = mapper.read("ooooohsu");
+		log.info(vo);
+	}
 	
 //	@Test
 //	public void readTest() {
@@ -66,6 +66,6 @@ public class MemberMapperTest {
 	
 	@Test
 	public void searchIdANDNickname() {
-		mapper.searchIdANDNickname(1, "i");
+		mapper.searchIdANDNickname(1, "h");
 	}
 }

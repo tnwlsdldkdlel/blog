@@ -109,7 +109,7 @@ html, body, h1, h2, h3, h4, h5 {
 				<!-- 검색 -->
 				<div class="container">
 					<div class="row row-cols-3">
-						<form action="/blog/search" method="get" id="searchForm">
+						<form action="/ITlog/search" method="get" id="searchForm">
 							<select class="custom-select my-1 mr-sm-2"
 								id="inlineFormCustomSelectPref" name="rangeType">
 								<option value="text" selected>글·내용</option>
@@ -131,17 +131,17 @@ html, body, h1, h2, h3, h4, h5 {
 
 			<!-- Middle Column -->
 			<div class="w3-col m7">
-				<c:forEach var="list" items="${list}">
+				<c:forEach var="text" items="${text}">
 					<div class="w3-container w3-card w3-white w3-round w3-margin">
 						<br> <span class="w3-right w3-opacity"><c:out
-								value="${list.regdate}"></c:out></span>
+								value="${text.regdate}"></c:out></span>
 						<h4>
-							<c:out value="${list.id}" />
+							<c:out value="${text.id}" />
 						</h4>
 						<br>
 						<hr class="w3-clear">
 						<p>
-							<c:out value="${list.content}" />
+							<c:out value="${text.content}" />
 						</p>
 						<br />
 						<button type="button"
@@ -175,7 +175,7 @@ html, body, h1, h2, h3, h4, h5 {
 			</c:if>
 		</ul>
 	</nav>
-	<form action="/blog/home" id="actionForm" method="get">
+	<form action="/ITlog/myblog/home" id="actionForm" method="get">
 		<input type="hidden" name="currentPage" value="${page.currentPage }" />
 	</form>
 

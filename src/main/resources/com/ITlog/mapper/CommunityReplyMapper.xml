@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ITlog.mapper.CommunityReplyMapper">
+	<insert id="insert">
+		INSERT INTO tbl_community_reply(rno,bno,id,content) values(seq_community_reply.nextval, #{bno},#{id},#{content})
+	</insert>
+	
+	<delete id="deleteRNO">
+		DELETE FROM tbl_community_reply WHERE RNO = #{rno}
+	</delete>
+	
+	<delete id="deleteBNO">
+		DELETE FROM tbl_community_reply WHERE bno = #{bno}
+	</delete>
+	
+	<update id="update">
+		UPDATE tbl_community_reply SET content = #{content} WHERE rno = #{rno}
+	</update>
+	
+	<select id="replyCount" resultType="int">
+		SELECT COUNT(rno) FROM tbl_community_reply WHERE RNO > 0 AND bno= #{bno}
+	</select>
+	
+	<select id="read" resultType="com.ITlog.domain.CommunityReplyVO">
+		<![CDATA[
+			select  rno,bno,id,content,regdate,updatedate
+			from(
+    			select  /*+INDEX (tbl_community_reply pk_tbl_community_reply)*/ Rownum rn,rno,bno,id,content,regdate,updatedate
+    			from tbl_community_reply
+    			Where Rownum <= ${page} * 10 AND rno > 0 AND bno=${bno}
+			)where rn > (${page}-1) * 10
+		]]>
+	</select>
+	
+</mapper>

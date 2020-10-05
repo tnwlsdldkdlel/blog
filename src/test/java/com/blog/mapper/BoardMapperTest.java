@@ -6,9 +6,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import com.blog.domain.BoardVO;
-import com.blog.domain.PageNation;
-import com.blog.domain.MemberVO;
+import com.ITlog.domain.BoardVO;
+import com.ITlog.domain.MemberVO;
+import com.ITlog.domain.PageNation;
+import com.ITlog.mapper.BoardMapper;
 
 import lombok.Setter;
 import lombok.extern.log4j.Log4j;
@@ -66,9 +67,14 @@ public class BoardMapperTest {
 //		mapper.readContent(81L).forEach(list -> log.info(list));
 //	}
 //	
+	/*
+	 * @Test public void search() { mapper.readID(2, "d", 5).forEach(list ->
+	 * log.info(list)); }
+	 */
+	
 	@Test
-	public void search() {
-		mapper.searchTitleANDContent(1, "f").forEach(list -> log.info(list));
+	public void test() {
+		mapper.readID(1, "test1").forEach(list -> log.info(list));
 	}
 	
 	

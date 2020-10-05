@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ITlog.mapper.communityMapper">
+
+	<resultMap type="com.ITlog.domain.communityVO" id="boardMap">
+		<id property="bno" column="bno"></id>
+		<result property="id" column="b_ID" />
+		<result property="title" column="title" />
+		<result property="content" column="content" />
+		<result property="regdate" column="regdate" />
+		<result property="reply" column="reply" />
+		<collection property="member" resultMap="MemberMap"></collection>
+	</resultMap>
+
+	<resultMap type="com.ITlog.domain.MemberVO" id="MemberMap">
+		<id property="id" column="m_ID"></id>
+		<result property="password" column="password" />
+		<result property="nickname" column="nickname" />
+		<result property="joindate" column="joindate" />
+		<result property="profileImage" column="profileImage" />
+		<result property="blog_name" column="blog_name" />
+		<result property="blog_itroduction" column="blog_itroduction" />
+	</resultMap>
+	<insert id="insert">
+		INSERT INTO tbl_community_Board(bno ,id,
+		title,content)
+		VALUES
+		(seq_community_Board.NEXTVAL,#{id},#{title},#{content})
+	</insert>
+
+	<delete id="delete">
+		DELETE FROM seq_community_Board cascade WHERE BNO =
+		#{bno}
+	</delete>
+
+	<update id="update">
+		update tbl_community_Board SET title= #{title},
+		content=#{content} WHERE BNO = #{bno}
+	</update>
+
+	<select id="readPaging" resultMap="boardMap">
+		<![CDATA[
+			select B.*
+			from
+  			 (select /*+index_desc(A A_INDEX)*/ rownum as rnum, A.*
+  			  from (
+      	 		 select b.bno,b.id AS b_ID,b.title,b.content,b.regdate,b.reply,m.id AS m_ID,m.password,m.nickname,m.joindate,m.profileImage
+    		    FROM tbl_community_Board b left outer join tbl_member m on m.id = b.id
+     		   order by b.bno desc ) A
+   			 where rownum <= #{currentPage} * 10 ) B
+			where B.rnum > (#{currentPage}-1) * 10
+
+		]]>
+	</select>
+
+	<select id="readCount" resultType="int">
+		<![CDATA[
+			select count(bno) from tbl_community_Board where bno > 0
+		]]>
+	</select>
+
+	<select id="readContent"
+		resultType="com.ITlog.domain.communityVO">
+		SELECT * FROM tbl_community_Board
+		where bno = #{bno}
+	</select>
+	
+	<select id="searchTitleANDContent" resultMap="boardMap">
+		<![CDATA[
+			select B.*
+			from
+  			 (select /*+index_desc(A A_INDEX)*/ rownum as rnum, A.*
+  			  from (
+      	 		 select b.bno,b.id AS b_ID,b.title,b.content,b.regdate,b.reply,m.id AS m_ID,m.password,m.nickname,m.joindate,m.profileImage
+    		    FROM tbl_community_Board b left outer join tbl_member m on m.id = b.id
+    		    where b.title LIKE '%' || #{keyword} || '%' OR   b.content LIKE '%' || #{keyword} || '%'
+     		   order by b.bno desc ) A
+   			 where rownum <= #{currentPage} * 10 ) B
+			where B.rnum > (#{currentPage}-1) * 10
+
+		]]>
+	</select>
+	
+	
+
+	<update id="replyUpdate">
+		update tbl_QANDA_Board set reply = (select count(rno)
+		from tbl_QANDA_reply where tbl_QANDA_reply.bno = tbl_QANDA_Board.bno)
+	</update>
+</mapper>

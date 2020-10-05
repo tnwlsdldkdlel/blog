@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import com.ITlog.service.BoardService;
+
 import lombok.Setter;
 import lombok.extern.log4j.Log4j;
 
@@ -24,7 +26,7 @@ public class BoardServiceTest {
 	
 	@Test
 	public void test2() {
-		service.boardContent(58l).forEach(list -> log.info(list));
+		service.listPaging(1).forEach(list -> log.info(list));
 	}
 	
 	

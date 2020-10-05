@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ITlog.mapper.QANDAReplyMapper">
+	<insert id="insert">
+		INSERT INTO tbl_QANDA_reply(rno,bno,id,content) values(seq_QANDA_reply.nextval, #{bno},#{id},#{content})
+	</insert>
+	
+	<delete id="deleteRNO">
+		DELETE FROM tbl_QANDA_reply WHERE RNO = #{rno}
+	</delete>
+	
+	<delete id="deleteBNO">
+		DELETE FROM tbl_QANDA_reply WHERE bno = #{bno}
+	</delete>
+	
+	<update id="update">
+		UPDATE tbl_QANDA_reply SET content = #{content} WHERE rno = #{rno}
+	</update>
+	
+	<select id="replyCount" resultType="int">
+		SELECT COUNT(rno) FROM tbl_QANDA_reply WHERE RNO > 0 AND bno= #{bno}
+	</select>
+	
+	<select id="read" resultType="com.ITlog.domain.QANDAReplyVO">
+		<![CDATA[
+			select /*+INDEX (tbl_QANDA_reply pk_tbl_QANDA_reply)*/ rno,bno,id,content,regdate,updatedate,selection
+			from(
+    			select Rownum rn,rno,bno,id,content,regdate,updatedate,selection
+    			from tbl_QANDA_reply
+    			Where Rownum <= ${page} * 10 AND bno=${bno} AND rno > 0 
+			)where rn > (${page}-1) * 10
+		]]>
+	</select>
+	
+	<update id="selection">
+		UPDATE tbl_QANDA_reply SET selection = 'selection' WHERE rno = #{rno}
+	</update>
+	
+	<select id="replyInfo" resultType="com.ITlog.domain.QANDAReplyVO">
+		select * from tbl_QANDA_reply
+	</select>
+	
+	
+	
+</mapper>

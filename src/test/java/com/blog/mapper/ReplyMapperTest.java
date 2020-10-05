@@ -6,7 +6,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import com.blog.domain.ReplyVO;
+import com.ITlog.domain.CommunityReplyVO;
+import com.ITlog.domain.ReplyVO;
+import com.ITlog.mapper.CommunityReplyMapper;
+import com.ITlog.mapper.QANDAReplyMapper;
+import com.ITlog.mapper.ReplyMapper;
+import com.ITlog.mapper.communityMapper;
+import com.ITlog.service.QANDAReplyService;
 
 import lombok.Setter;
 import lombok.extern.log4j.Log4j;
@@ -17,7 +23,10 @@ import lombok.extern.log4j.Log4j;
 public class ReplyMapperTest {
 	
 	@Setter(onMethod_ = @Autowired )
-	private ReplyMapper mapper;
+	private CommunityReplyMapper mapper;
+	
+	@Setter(onMethod_ = @Autowired )
+	private QANDAReplyMapper qandamapper;
 	
 //	@Test
 //	public void insertTest() {
@@ -42,9 +51,20 @@ public class ReplyMapperTest {
 //		mapper.update(vo);
 //	}
 	
+//	@Test
+//	public void readTest() {
+//		mapper.read(1, 7L).forEach(list -> log.info("list"));
+//	}
+	
+	/*
+	 * @Test public void insertTest() { CommunityReplyVO vo = new
+	 * CommunityReplyVO(); vo.setId("v"); vo.setContent("첫 댓글!!"); int count =
+	 * mapper.insert(vo); log.info(count); }
+	 */
+	
 	@Test
-	public void readTest() {
-		mapper.read(58L).forEach(list -> log.info(list));
+	public void readTest(){
+		qandamapper.read(1, 121L).forEach(list -> log.info(list));
 	}
 	
 	

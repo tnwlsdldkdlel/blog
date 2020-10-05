@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ITlog.mapper.MemberMapper">
+	<!-- DB값과 DTO객체의 프로퍼티의 명이 다를때  -->
+	
+
+	<insert id="insert">
+		INSERT INTO tbl_Member(id,password,nickname,profileImage) VALUES (#{id},#{password},#{nickname},#{profileImage})
+	</insert>
+	
+	<delete id="delete">
+		delete tbl_Member where id=#{id}
+	</delete>
+	
+	<update id="update">
+		update tbl_Member set nickname= #{nickname}, password=#{password}, blog_name = #{blog_name},blog_itroduction= #{blog_itroduction} where id=#{id}
+	</update>
+	
+	<select id="read" resultType="com.ITlog.domain.MemberVO">
+		select * from tbl_Member where id = #{id}
+	</select>
+	
+	<select id="searchIdANDNickname" resultType="com.ITlog.domain.MemberVO">	
+		 <![CDATA[
+		 	SELECT /*+INDEX(tbl_Member pk_Blog_Member)*/ id,nickname,blog_name,blog_itroduction
+			FROM(
+   				 SELECT id,nickname,blog_name,blog_itroduction, ROWNUM rn
+   				 FROM tbl_Member 
+  				  Where Rownum <= #{currentPage} * 10 AND ( id LIKE '%' || #{keyword} || '%' OR nickname LIKE '%' || #{keyword} || '%' )
+				)WHERE RN > 0
+		 ]]>
+	</select>
+	
+	<update id="updateImage">
+		update tbl_Member set profileImage= #{profileImage} where id=#{id}
+	</update>
+	
+	<select id="allInfo" resultType="com.ITlog.domain.MemberVO">
+		select * from tbl_Member
+	</select>
+	
+	
+	
+
+
+</mapper>

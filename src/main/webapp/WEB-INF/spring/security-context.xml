@@ -8,19 +8,17 @@
 		http://mybatis.org/schema/mybatis-spring http://mybatis.org/schema/mybatis-spring-1.2.xsd
 		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
-	<bean class="com.blog.security.customUserDetail" id="customUserDetail">
+	<bean class="com.ITlog.security.customUserDetail" id="customUserDetail">
 	</bean>
-	<bean id="userAuthProvider" class="com.blog.security.CustomAuthenticationProvider"></bean>
-
+	<bean id="userAuthProvider" class="com.ITlog.security.CustomAuthenticationProvider"></bean>
 	<security:http auto-config="true">
 		<security:csrf disabled="true" />
-		<security:form-login login-page="/blog/home"
+		<security:form-login login-page="/ITlog/home"
 			password-parameter="id" username-parameter="password"
 			always-use-default-target="true" login-processing-url="/loginCheck"
 			authentication-success-handler-ref="loginSuccessHandler"
-			authentication-failure-handler-ref="loginFailureHandler"
-			authentication-failure-url="/blog/home" />
-		<security:logout logout-success-url="/blog/home" logout-url="/logoutCheck" invalidate-session="true" />
+			authentication-failure-handler-ref="loginFailureHandler"/>
+		<security:logout logout-success-url="/ITlog/home" logout-url="/logoutCheck" invalidate-session="true" />
 	</security:http>
 
 	<security:authentication-manager>
@@ -28,16 +26,18 @@
 		<security:authentication-provider user-service-ref="customUserDetail"></security:authentication-provider>
 	</security:authentication-manager>
 	<bean id="customAccess"
-		class="com.blog.security.CustomLoginSuccessHandler">
+		class="com.ITlog.security.CustomLoginSuccessHandler">
 	</bean>
 	
-	<bean id="loginSuccessHandler" class="com.blog.security.CustomLoginSuccessHandler">
-		<property name="defaultUrl" value="/blog/home"></property>
+	<bean id="loginSuccessHandler" class="com.ITlog.security.CustomLoginSuccessHandler">
+		<property name="defaultUrl" value="/ITlog/home"></property>
 		<property name="id" value="id"></property>
-		
+
 	</bean>
 	
-	<bean id="loginFailureHandler" class="com.blog.security.CustomLoginFailureHandler">
-		<property name="defaultUrl" value="/blog/home"></property>
+	<bean id="loginFailureHandler" class="com.ITlog.security.CustomLoginFailureHandler">
+		<property name="defaultUrl" value="/ITlog/home"></property>
+		<property name="id" value="id"></property>
+		<property name="password" value="password"></property>
 	</bean>
 </beans>
